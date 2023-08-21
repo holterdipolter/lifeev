@@ -34,7 +34,7 @@ function sendParametersRaspi () {
     serial.writeLine("dataSlot8Channel#" + DataSlot8Channel)
     serial.writeLine("dataSlot9#" + DataSlot9)
     serial.writeLine("dataSlot9Channel#" + DataSlot9Channel)
-    serial.writeLine("sleepTime#" + sleeptime)
+    serial.writeLine("status#" + status)
     serial.writeLine("calliLED#" + CalliLED)
     serial.writeLine("calliDisplay#" + CalliDisplay)
     serial.writeLine("SEQ#COMPLETE")
@@ -119,7 +119,7 @@ function storeData () {
     DataSlot8Channel = parseFloat(list[29])
     DataSlot9 = parseFloat(list[30])
     DataSlot9Channel = parseFloat(list[31])
-    sleeptime = parseFloat(list[32])
+    status = parseFloat(list[32])
     CalliLED = parseFloat(list[33])
     CalliDisplay = parseFloat(list[34])
 }
@@ -127,7 +127,7 @@ let list: string[] = []
 let string = ""
 let CalliDisplay = 0
 let CalliLED = 0
-let sleeptime = 0
+let status = 0
 let DataSlot9Channel = 0
 let DataSlot9 = 0
 let DataSlot8Channel = 0
