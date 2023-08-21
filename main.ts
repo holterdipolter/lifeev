@@ -85,6 +85,21 @@ input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     serial.writeLine("calliButtonB")
 })
+function Display () {
+    if (status == 1) {
+        basic.showLeds(`
+            # . # . #
+            . # # # .
+            . . # . .
+            . . # . .
+            . . # . .
+            `)
+        basic.setLedColor(0xffff00)
+    } else {
+        basic.clearScreen()
+        basic.setLedColor(0x00ff00)
+    }
+}
 function storeData () {
     list = string.split(";")
     WeatherData = list[0]
@@ -168,10 +183,10 @@ radio.setGroup(1)
 serial.setRxBufferSize(128)
 serial.setTxBufferSize(128)
 basic.forever(function () {
-    basic.setLedColor(0xffff00)
     receiveParametersRaspi()
     basic.setLedColor(0xff0000)
     storeData()
     sendDataCalliope()
     sendParametersRaspi()
+    Display()
 })
