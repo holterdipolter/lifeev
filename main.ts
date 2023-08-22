@@ -1,7 +1,68 @@
 enum RadioMessage {
     message1 = 49434
 }
-function sendParametersRaspi () {
+function sendDataCalliope () {
+    radio.setGroup(WeatherDataChannel)
+    radio.sendString("" + (WeatherData))
+    radio.setGroup(WeatherHumidChannel)
+    radio.sendNumber(WeatherHumid)
+    radio.setGroup(WeatherRainChannel)
+    radio.sendNumber(WeatherRain)
+    radio.setGroup(WeatherTempChannel)
+    radio.sendNumber(WeatherTemp)
+    radio.setGroup(WeatherWinddirectionChannel)
+    radio.sendNumber(WeatherWinddirection)
+    radio.setGroup(WeatherWindspeedChannel)
+    radio.sendNumber(WeatherWindspeed)
+    radio.setGroup(DataSlot0Channel)
+    radio.sendNumber(DataSlot0)
+    radio.setGroup(DataSlot1Channel)
+    radio.sendNumber(DataSlot1)
+    radio.setGroup(DataSlot2Channel)
+    radio.sendNumber(DataSlot2)
+    radio.setGroup(DataSlot3Channel)
+    radio.sendNumber(DataSlot3)
+    radio.setGroup(DataSlot4Channel)
+    radio.sendNumber(DataSlot4)
+    radio.setGroup(DataSlot5Channel)
+    radio.sendNumber(DataSlot5)
+    radio.setGroup(DataSlot6Channel)
+    radio.sendNumber(DataSlot6)
+    radio.setGroup(DataSlot7Channel)
+    radio.sendNumber(DataSlot7)
+    radio.setGroup(DataSlot8Channel)
+    radio.sendNumber(DataSlot8)
+    radio.setGroup(DataSlot9Channel)
+    radio.sendNumber(DataSlot9)
+}
+input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
+    serial.writeLine("calliButtonA")
+})
+input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
+    serial.writeLine("calliButtonAB")
+})
+input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
+    serial.writeLine("calliButtonB")
+})
+function Display () {
+    if (status == 1) {
+        basic.showLeds(`
+            # . # . #
+            . # # # .
+            . . # . .
+            . . # . .
+            . . # . .
+            `)
+        basic.setLedColor(0xff8000)
+    } else {
+        basic.clearScreen()
+        basic.setLedColor(0x00ff00)
+    }
+}
+function receiveDataRaspi () {
+    string = serial.readUntil(serial.delimiters(Delimiters.Dollar))
+}
+function sendDataRaspi () {
     serial.writeLine("weatherData#" + WeatherData)
     serial.writeLine("weatherDataChannel#" + WeatherDataChannel)
     serial.writeLine("weatherHumid#" + WeatherHumid)
@@ -38,67 +99,6 @@ function sendParametersRaspi () {
     serial.writeLine("calliLED#" + CalliLED)
     serial.writeLine("calliDisplay#" + CalliDisplay)
     serial.writeLine("SEQ#COMPLETE")
-}
-function sendDataCalliope () {
-    radio.setGroup(WeatherDataChannel)
-    radio.sendString("" + (WeatherData))
-    radio.setGroup(WeatherHumidChannel)
-    radio.sendNumber(WeatherHumid)
-    radio.setGroup(WeatherRainChannel)
-    radio.sendNumber(WeatherRain)
-    radio.setGroup(WeatherTempChannel)
-    radio.sendNumber(WeatherTemp)
-    radio.setGroup(WeatherWinddirectionChannel)
-    radio.sendNumber(WeatherWinddirection)
-    radio.setGroup(WeatherWindspeedChannel)
-    radio.sendNumber(WeatherWindspeed)
-    radio.setGroup(DataSlot0Channel)
-    radio.sendNumber(DataSlot0)
-    radio.setGroup(DataSlot1Channel)
-    radio.sendNumber(DataSlot1)
-    radio.setGroup(DataSlot2Channel)
-    radio.sendNumber(DataSlot2)
-    radio.setGroup(DataSlot3Channel)
-    radio.sendNumber(DataSlot3)
-    radio.setGroup(DataSlot4Channel)
-    radio.sendNumber(DataSlot4)
-    radio.setGroup(DataSlot5Channel)
-    radio.sendNumber(DataSlot5)
-    radio.setGroup(DataSlot6Channel)
-    radio.sendNumber(DataSlot6)
-    radio.setGroup(DataSlot7Channel)
-    radio.sendNumber(DataSlot7)
-    radio.setGroup(DataSlot8Channel)
-    radio.sendNumber(DataSlot8)
-    radio.setGroup(DataSlot9Channel)
-    radio.sendNumber(DataSlot9)
-}
-function receiveParametersRaspi () {
-    string = serial.readUntil(serial.delimiters(Delimiters.Dollar))
-}
-input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
-    serial.writeLine("calliButtonA")
-})
-input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
-    serial.writeLine("calliButtonAB")
-})
-input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
-    serial.writeLine("calliButtonB")
-})
-function Display () {
-    if (status == 1) {
-        basic.showLeds(`
-            # . # . #
-            . # # # .
-            . . # . .
-            . . # . .
-            . . # . .
-            `)
-        basic.setLedColor(0xffff00)
-    } else {
-        basic.clearScreen()
-        basic.setLedColor(0x00ff00)
-    }
 }
 function storeData () {
     list = string.split(";")
@@ -139,42 +139,42 @@ function storeData () {
     CalliDisplay = parseFloat(list[34])
 }
 let list: string[] = []
-let string = ""
 let CalliDisplay = 0
 let CalliLED = 0
+let string = ""
 let status = 0
-let DataSlot9Channel = 0
 let DataSlot9 = 0
-let DataSlot8Channel = 0
+let DataSlot9Channel = 0
 let DataSlot8 = 0
-let DataSlot7Channel = 0
+let DataSlot8Channel = 0
 let DataSlot7 = 0
-let DataSlot6Channel = 0
+let DataSlot7Channel = 0
 let DataSlot6 = 0
-let DataSlot5Channel = 0
+let DataSlot6Channel = 0
 let DataSlot5 = 0
-let DataSlot4Channel = 0
+let DataSlot5Channel = 0
 let DataSlot4 = 0
-let DataSlot3Channel = 0
+let DataSlot4Channel = 0
 let DataSlot3 = 0
-let DataSlot2Channel = 0
+let DataSlot3Channel = 0
 let DataSlot2 = 0
-let DataSlot1Channel = 0
+let DataSlot2Channel = 0
 let DataSlot1 = 0
-let DataSlot0Channel = 0
+let DataSlot1Channel = 0
 let DataSlot0 = 0
-let WeatherWindspeedChannel = 0
+let DataSlot0Channel = 0
 let WeatherWindspeed = 0
-let WeatherWinddirectionChannel = 0
+let WeatherWindspeedChannel = 0
 let WeatherWinddirection = 0
-let WeatherTempChannel = 0
+let WeatherWinddirectionChannel = 0
 let WeatherTemp = 0
-let WeatherRainChannel = 0
+let WeatherTempChannel = 0
 let WeatherRain = 0
-let WeatherHumidChannel = 0
+let WeatherRainChannel = 0
 let WeatherHumid = 0
-let WeatherDataChannel = 0
+let WeatherHumidChannel = 0
 let WeatherData = ""
+let WeatherDataChannel = 0
 basic.setLedColor(0xff0000)
 basic.pause(500)
 basic.setLedColor(0x00ff00)
@@ -183,10 +183,10 @@ radio.setGroup(1)
 serial.setRxBufferSize(128)
 serial.setTxBufferSize(128)
 basic.forever(function () {
-    receiveParametersRaspi()
+    receiveDataRaspi()
     basic.setLedColor(0xff0000)
     storeData()
     sendDataCalliope()
-    sendParametersRaspi()
+    sendDataRaspi()
     Display()
 })
